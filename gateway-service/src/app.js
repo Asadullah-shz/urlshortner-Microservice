@@ -1,11 +1,11 @@
 const express=require("express")
 const cors = require("cors")
 const morgan = require("morgan")
-const authRoutes = require("./routes/auth.route")
-const urlRoutes = require("./routes/url.route")
-const analyticsRoutes = require("./routes/analytics.route")
-const  rateLimit = require("./middleware/ratelimit")
-const { notFoundHandler, errorHandler } = require("./middleware/error.middleware")
+const authRoutes = require("./routes/auth.routes")
+const urlRoutes = require("./routes/url.routes")
+const analyticsRoutes = require("./routes/analytics.routes")
+const  rateLimit = require("./middlewares/ratelimit")
+const { notFoundHandler, errorHandler } = require("./middlewares/error.middleware")
 
 
 const app=express()

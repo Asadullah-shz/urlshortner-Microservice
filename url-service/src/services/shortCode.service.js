@@ -1,4 +1,4 @@
-const URLmodel = require('../model/url');
+const URLmodel = require('../models/url');
 const generateShortCode = require('../utils/generateShortCode');
 
 async function createUniqueShortCode() {

@@ -14,10 +14,14 @@ const AnalyticsSchema = new mongoose.Schema({
         ref: "Users",
         required: true
     },
+    shortCode: {
+        type: String,
+        required: true
+    },
     clickedAt: {
         type: Date,
+        default: Date.now
     }
-
 
 })
 

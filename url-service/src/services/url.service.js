@@ -1,4 +1,4 @@
-const URLmodel = require('../model/url');
+const URLmodel = require('../models/url');
 
 async function createShortURL(userID, originalURL, customAlias = null) {
     const { createUniqueShortCode } = require('./shortCode.service');

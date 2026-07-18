@@ -1,4 +1,4 @@
-const URLmodel = require('../model/url');
+const URLmodel = require('../models/url');
 
 async function handleRedirect(shortCode) {
     const urlData = await URLmodel.findOne({ shortCode, status: 'active' });

@@ -1,7 +1,7 @@
 const express = require("express")
 const cookieParser = require("cookie-parser")
-const AuthRoute = require("./routes/auth.route")
-const ProfileRoute=require("./routes/profile.route")
+const AuthRoute = require("./routes/auth.routes")
+const ProfileRoute=require("./routes/profile.routes")
 
 const app = express()
 

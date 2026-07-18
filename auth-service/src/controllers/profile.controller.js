@@ -1,5 +1,5 @@
 require("dotenv").config()
-const Usermodel = require("../model/user")
+const Usermodel = require("../models/user")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 const { uploadFile } = require("../services/storage.service")
@@ -44,7 +44,7 @@ async function UpdateProfile(req, res) {
                 username: updateData.username,
                 profileImage: updateData.profileImage
             },
-            { new: true }
+            { returnDocument: 'after' }
         );
 
         if (!updatedUser) {

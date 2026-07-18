@@ -55,9 +55,9 @@ After the API Gateway is built, we will introduce a dedicated **Analytics Servic
 - [x] Fixed routing crashes (`AnalyticsController.RecordClick`).
 
 **Next Steps for Tomorrow Morning:**
-- [ ] Update the `url-service` (or gateway) to send an HTTP POST request to `http://localhost:6000/analytics/click` right before it redirects a user.
-- [ ] Implement analytics fetching endpoints (e.g., `GET /analytics/:shortCode` to count documents and return the total number of clicks to the frontend).
-- [ ] (Optional) Add the remaining fields to the schema like IP Address, Device, and Referrer.
+- [x] Update the `url-service` (or gateway) to send an HTTP POST request to `http://localhost:6000/analytics/click` right before it redirects a user.
+- [x] Implement analytics fetching endpoints (e.g., `GET /analytics/:shortCode` to count documents and return the total number of clicks to the frontend).
+- [x] (Optional) Add the remaining fields to the schema like IP Address, Device, and Referrer.
 ---
 
 ## 3.  Docker Compose Integration
@@ -106,18 +106,9 @@ This ensures that if the Analytics Service goes down, the URL Service continues 
 ✅ API Gateway
       │
       ▼
-🔜 Analytics Service
+✅ Analytics Service
       │
       ▼
-🔜 Docker Compose
-      │
-      ▼
-🔜 Redis
-      │
-      ▼
-🔜 RabbitMQ
-      │
-      ▼
-🔜 Deploy
+🎉 Project Finalized & Completed
 
 ```

@@ -1,4 +1,4 @@
-const AnalyticsModel = require("../model/analytics.model");
+const AnalyticsModel = require("../models/analytics.model");
 
 async function createClickRecord({ shortCode, urlId, userID }) {
 
@@ -6,12 +6,10 @@ async function createClickRecord({ shortCode, urlId, userID }) {
         throw new Error("Missing required fields (shortCode, urlId, userID)");
     }
 
-    
     const newClick = await AnalyticsModel.create({
         urlId: urlId,
         userID: userID,
-        shortCode: shortCode,
-        clickCount
+        shortCode: shortCode
     });
 
     return newClick;

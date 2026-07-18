@@ -2,7 +2,7 @@ require("dotenv").config();
 const { createShortURL } = require("../services/url.service");
 const { validateURL } = require("../utils/validators");
 const response = require("../utils/response");
-const URLDB = require("../model/url");
+const URLDB = require("../models/url");
 
 async function ShortURL(req, res, next) {
     try {
@@ -95,7 +95,7 @@ async function UpdateURL(req, res) {
             originalURL, 
             customAlias,
             status,
-        }, { new: true }); 
+        }, { returnDocument: 'after' }); 
         
         if (!result) {
             return response(res, 404, false, "URL not found or you do not have permission to update it");

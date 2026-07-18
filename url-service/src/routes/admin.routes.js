@@ -1,6 +1,6 @@
 const express = require("express")
-const AdminController = require("../controller/admin_url.controller")
-const AuthmiddleWare=require("../middleware/auth.middleware")
+const AdminController = require("../controllers/admin.controller")
+const AuthmiddleWare=require("../middlewares/auth.middleware")
 
 const router = express.Router()
 

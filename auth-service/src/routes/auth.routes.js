@@ -1,5 +1,5 @@
 const express = require("express")
-const AuthController = require("../controller/auth.controller")
+const AuthController = require("../controllers/auth.controller")
 const multer=require("multer")
 const router = express.Router()
 const upload = multer({ storage: multer.memoryStorage() })

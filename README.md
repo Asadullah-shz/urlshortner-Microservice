@@ -1,53 +1,65 @@
-## URL Shortener Platform
+# URL Shortener Microservices
 
-Welcome to the URL Shortener project! This is a complete backend platform that allows users to create short links (like `bit.ly`) and allows admins to manage them.
+A production-ready, scalable URL shortener built with a microservices architecture. It demonstrates modern backend development patterns, inter-service communication, API Gateway routing, and comprehensive testing.
 
-To make the platform scalable and professional, it is built using a **Microservices Architecture**. This means instead of one giant app, the project is split into smaller, independent services that talk to each other.
+## Why Build a URL Shortener? 
+A URL Shortener isn't just about making links smaller. In the real world, this exact architecture is used to:
+- **Improve User Experience:** Convert massive, ugly, 200-character URLs into clean, readable links that fit perfectly in SMS messages, Twitter/X posts, and emails.
+- **Marketing & Analytics:** Track user engagement. Every time a user clicks a shortened link, the Analytics Service records the click, allowing businesses to measure the success of their marketing campaigns.
+- **Link Management:** Businesses can update the original long URL at any time without changing the short link they've already printed on business cards or posted online.
+- **Brand Trust:** Custom aliases (like `yourdomain.com/sale`) increase click-through rates compared to random strings.
 
----
+## System Architecture
 
-## Project Structure
+The ecosystem consists of four interconnected microservices and a testing suite:
 
-The project is divided into three main folders. Click on each folder to read more about what it does:
+1. **Gateway Service (`:5000`)**: The single entry point for all API requests. Handles routing, rate-limiting, and proxying requests to the appropriate backend services.
+2. **Auth Service (`:3000`)**: Manages user registration, login, and profile updates. Issues JWTs for secure access across the ecosystem.
+3. **URL Service (`:4000`)**: The core service. Handles the creation, redirection, and administration of shortened URLs.
+4. **Analytics Service (`:6000`)**: Tracks and records clicks on shortened URLs, providing analytics on link usage.
+5. **API Tester**: An automated end-to-end testing suite that validates the entire architecture's functionality.
 
-1. **[`/auth-service`](./auth-service)**: The bouncer of the club. It handles user registration, secure logins, and generates JWT (JSON Web Token) "ID cards" for users.
+## Request Flow
+1. Client sends a request to the **API Gateway** (`http://localhost:5000`).
+2. Gateway applies rate limiting.
+3. If the route requires authentication, the Gateway validates the JWT.
+4. The request is proxied to the respective service (`Auth`, `URL`, or `Analytics`).
+5. For redirects, the URL Service fetches the original URL, asynchronously fires an event/request to the Analytics Service to record the click, and then redirects the client.
 
-2. **[`/url-service`](./url-service)**: The core engine. It takes long URLs, creates short codes, and saves them to MongoDB. It checks the user's JWT ID card before allowing them to create or delete URLs.
+## Getting Started
 
+### Prerequisites
+- Node.js (v18+)
+- MongoDB (Running locally or via Atlas)
 
----
-
-##  Quick Start Guide
-
-Want to run the whole project on your machine? Follow these simple steps.
-
-### Step 1: Setup Environment Variables
-You need a `.env` file inside **both** the `auth-service` and `url-service` folders. 
-
-Create a `.env` file in both folders and add these exact lines:
-```env
-# Use Port 3000 for auth-service, and 4000 for url-service
-PORT=... 
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=my_super_secret_password_123
-```
-*(Important: The `JWT_SECRET` must be exactly the same in both folders so they can understand each other's tokens!)*
-
-### Step 2: Start the Auth Service
-Open a new terminal window:
+### Installation
+Each service manages its own dependencies. You will need to run `npm install` in each directory:
 ```bash
-cd auth-service
-npm install
-npm run dev
+cd auth-service && npm install
+cd ../url-service && npm install
+cd ../analytics-service && npm install
+cd ../gateway-service && npm install
+cd ../api-tester && npm install
 ```
 
-### Step 3: Start the URL Service
+### Environment Variables
+Each service requires a `.env` file. See the `.env.example` in each service (or refer to the codebase) for required keys like `PORT`, `MONGO_URI`, and `JWT_SECRET`.
 
-Open a **second** terminal window:
-
+### Running Locally
+To start the entire ecosystem, start each service in a separate terminal:
 ```bash
-cd url-service
-npm install
-npm run dev
+cd [service-name] && npm run dev
 ```
 
+### Testing
+To ensure the entire ecosystem is communicating correctly, run the integration suite:
+```bash
+cd api-tester
+npm test
+```
+
+## Production Architecture Notes
+This codebase features:
+- **Dot Notation Naming Conventions** (`auth.controller.js`, `url.routes.js`).
+- **Pluralized Standard Directories** (`controllers/`, `middlewares/`, `models/`).
+- **Separation of Concerns** (Business logic isolated in `services/`, Express configuration in `app.js`, and Server bootstrapping in `server.js`).

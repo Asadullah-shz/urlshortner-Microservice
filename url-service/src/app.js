@@ -1,7 +1,7 @@
 const express=require("express")
 const cookieParser = require("cookie-parser")
-const URLRouter=require("./routes/url.route")
-const AdminRouter=require("./routes/admin.route")
+const URLRouter=require("./routes/url.routes")
+const AdminRouter=require("./routes/admin.routes")
 
 const app=express()
 
@@ -11,7 +11,7 @@ app.use(cookieParser())
 app.use(URLRouter)
 app.use(AdminRouter)
 
-const errorMiddleware = require("./middleware/error.middleware")
+const errorMiddleware = require("./middlewares/error.middleware")
 app.use(errorMiddleware)
 
 module.exports=app

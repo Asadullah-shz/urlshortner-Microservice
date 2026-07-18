@@ -1,33 +1,29 @@
 # URL Service
 
-The **URL Service** is the core engine of the platform. It handles the actual business logic of shortening URLs and storing them in the database.
+The **URL Service** is the core functional service that handles the creation, redirection, and management of shortened URLs.
 
-## What does it do?
+## Features
+- **URL Shortening**: Generates unique 6-character short codes for long URLs.
+- **Redirection**: Resolves short codes back to their original long URLs.
+- **Admin Management**: Allows admins to view, update, and delete any URL.
+- **User Dashboard**: Allows users to manage their own shortened URLs.
 
-- **Shortens URLs**: Takes a long original URL and generates a random, unique short code (or accepts a custom alias).
-
-- **Validates Input**: Ensures that the provided URL is actually a valid web address before saving it.
-
-- **Secures Data**: Uses an `AuthMiddleware` to read the JWT token (created by the Auth Service) to ensure that only logged-in users can create URLs.
-
-- **Role-Based Access**: Contains completely separate logic for normal Users vs. Admins. Users can only see and delete their *own* URLs, while Admins can manage *everyone's* URLs.
-
-- **Pagination**: Efficiently fetches data in small chunks (pages) so the database doesn't crash if a user has thousands of URLs.
-
-## Environment Variables
-
-Create a `.env` file in this folder:
-```env
-PORT=4000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_shared_jwt_secret
+## Folder Structure
 ```
-*(Note: The `JWT_SECRET` must match the one used in the Auth Service!)*
+src/
+├── config/         # Database configuration
+├── controllers/    # Request handlers for user and admin routes
+├── middlewares/    # Auth and error middlewares
+├── models/         # Mongoose schema for URLs
+├── routes/         # Express routes
+├── services/       # Core business logic (generation, redirection)
+├── utils/          # Helper functions and validators
+├── app.js          # Express app configuration
+└── server.js       # Server initialization
+```
 
 ## Running the Service
-
 ```bash
 npm install
 npm run dev
 ```
-The server will start on `http://localhost:4000`.

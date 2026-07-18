@@ -1,5 +1,5 @@
 require("dotenv").config()
-const URLDB = require("../model/url")
+const URLDB = require("../models/url")
 const response = require("../utils/response")
 
 
@@ -61,7 +61,7 @@ async function AdminUpdateURLByID(req, res) {
                 customAlias,
                 status
             },
-            { new: true }
+            { returnDocument: 'after' }
         );
 
         if (!result) {

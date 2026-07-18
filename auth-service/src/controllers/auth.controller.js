@@ -1,5 +1,5 @@
 require("dotenv").config()
-const Usermodel = require("../model/user")
+const Usermodel = require("../models/user")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 const { uploadFile } = require("../services/storage.service")
